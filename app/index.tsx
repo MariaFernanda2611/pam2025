@@ -1,78 +1,71 @@
+import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
-  const nome = "Maria";
-    const cell= () =>{
+
+const [board,setBoard] = useState(Array(9).fill(null));
+const [currentPlayer, setCurrentPlayer] = useState("x");
+const [winner, setwinner] = useState(null);
+
+    const handlePress = (index:number) => {
+        const newBoard = [...board];
+        newBoard[index] = currentPlayer;
+        setBoard(newBoard);
+        
+        setCurrentPlayer(currentPlayer === "x" ? "o" : "x");
+    }
+
+    const cell= (index:number) =>{
         return(
-        <View>
-          <TouchableOpacity>
-            <Text>X</Text>
+        
+          <TouchableOpacity style={style.cell} onPress={() => handlePress (index)}>
+            <Text style={style.cellContent}>{board[index]}</Text>
           </TouchableOpacity>
-        </View>
+    
         )
     }
   return (
     <View style={style.container}
     >
-      <Text>"Jogo da Velha</Text>
+      <Text style ={style.title}>Jogo da Velha</Text>
       <Text>Vencedor</Text>
+    
 
       <View>
-        <View>
-            {cell()}
-            {cell()}
-            {cell()}
-        </View>
-        </View>
 
-        <View>
-        <View>
-            {cell()}
-            {cell()}
-            {cell()}
+        <View style={style.row}>
+            {cell(0)}
+            {cell(1)}
+            {cell(2)}
         </View>
-        </View>
+        
 
-        <View>
-        <View>
-            {cell()}
-            {cell()}
-            {cell()}
+        
+        <View style={style.row}>
+            {cell(3)}
+            {cell(4)}
+            {cell(5)}
         </View>
-        </View>
+        
 
-        <View>
-        <View>
-            {cell()}
-            {cell()}
-            {cell()}
-            </View>
-        </View>
-
-        <View>
-        <View>
-            {cell()}
-            {cell()}
-            {cell()}
-        </View>
-        </View>
-
-        <View>
-            {cell()}
-            {cell()}
-            {cell()}
-        </View>
-
-    </View>
-  )
+        
+        <View style={style.row}>
+            {cell(6)}
+            {cell(7)}
+            {cell(8)}
+       </View>
+       </View>
+       </View>
+    
+    );
 }
-
-const style = StyleSheet.create({
-    container:{
+  
+        const style = StyleSheet.create({
+        container:{
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#A8C686",
+        backgroundColor: "#89BBFE",
 
     },
 
@@ -97,10 +90,10 @@ const style = StyleSheet.create({
         width:80,
         height:80,
         borderWidth:2,
-        borderColor:"#",
+        borderColor:"#003459",
         alignItems:"center",
         justifyContent:"center",
-        backgroundColor:"",
+        backgroundColor:"#A3D9FF",
     },
     cellContent:{
         fontSize:36,
